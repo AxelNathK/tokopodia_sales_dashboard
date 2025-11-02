@@ -107,7 +107,6 @@ with tab1:
         st.pyplot(fig)
         
     st.markdown("**Insight & Call to Action**:")
-    st.write("- Jelaskan singkat tren yang terlihat dan rekomendasi (misal: tingkatkan promosi di bulan dengan penjualan rendah).")
 
 with tab2:
     st.header("Product-level Summary")
@@ -167,3 +166,4 @@ with tab2:
         ax3.set_title("Quantity by Month (Mobile & Tablet via JazzWallet)")
         ax3.set_xticklabels(mob_month.index, rotation=45)
         st.pyplot(fig3)
+
