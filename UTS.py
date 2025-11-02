@@ -1,4 +1,3 @@
-# streamlit_app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,9 +6,7 @@ from pathlib import Path
 
 st.set_page_config(page_title="Tokopedia Sales Dashboard (2022)", layout="wide")
 
-# ----------------------
-# Helper: load & prepare data (cached)
-# ----------------------
+#load & prepare data
 @st.cache_data
 def load_data(path: str):
     df = pd.read_excel(path)
@@ -35,13 +32,11 @@ def load_data(path: str):
     df['month_name'] = df['order_date'].dt.strftime('%Y-%m')
     return df
 
-# ----------------------
 # Main
-# ----------------------
 st.title("Tokopedia — Sales Dashboard (2022)")
 st.markdown("Interactive dashboard to monitor Value Sales, Net Profit and AOV. Use the filters in the sidebar.")
 
-# Path to Excel (file must be in same folder or provide full path)
+# Path to Excel
 DEFAULT_PATH = "Copy of finalProj_df.xlsx"
 excel_path = Path(DEFAULT_PATH)
 if not excel_path.exists():
@@ -94,7 +89,7 @@ with tab1:
         col4.metric("Total Quantity", f"{df_f['qty_ordered'].sum():,.0f}")
         col5.metric("Unique Orders", f"{df_f['id'].nunique():,.0f}")
         
-        # Matplotlib combined plot: before_discount & net_profit with secondary axis for AOV
+        # before_discount & net_profit with secondary axis for AOV
         fig, ax = plt.subplots(figsize=(10,4))
         x = monthly_metrics.index
         ax.plot(x, monthly_metrics['before_discount'], marker='o', label='Value Sales (before_discount)')
@@ -154,7 +149,7 @@ with tab2:
     axb.set_xticklabels(cat_agg['category'], rotation=45, ha='right')
     st.pyplot(fig2)
     
-    # Bonus: mobile & tablet paid via JazzWallet
+    # mobile & tablet paid via JazzWallet
     st.subheader("Mobile & Tablet paid via JazzWallet (2022)")
     mask_cat = df_f['category'].astype(str).str.lower().str.contains('mobile|tablet')
     mask_pay = df_f['payment_method'].astype(str).str.lower().str.contains('jazz')
@@ -172,6 +167,3 @@ with tab2:
         ax3.set_title("Quantity by Month (Mobile & Tablet via JazzWallet)")
         ax3.set_xticklabels(mob_month.index, rotation=45)
         st.pyplot(fig3)
-
-st.markdown("---")
-st.markdown("**Notes:** Data used is synthetic/fictitious for the exercise. This app was generated to meet the UTS Data Visualization requirements.")
