@@ -105,8 +105,6 @@ with tab1:
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax.legend(lines + lines2, labels + labels2, loc='upper left')
         st.pyplot(fig)
-        
-    st.markdown("**Insight & Call to Action**:")
 
 with tab2:
     st.header("Product-level Summary")
@@ -166,4 +164,5 @@ with tab2:
         ax3.set_title("Quantity by Month (Mobile & Tablet via JazzWallet)")
         ax3.set_xticklabels(mob_month.index, rotation=45)
         st.pyplot(fig3)
+
 
